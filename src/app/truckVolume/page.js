@@ -35,10 +35,11 @@ const Page = () => {
     });
 
     return (
-        <div>
+        <div className='text-center'>
+            <h2 className='my-2 font-bold text-2xl'>Volume Calculation</h2>
             <form
                 onSubmit={formik.handleSubmit}
-                className='grid grid-cols-2 gap-3'
+                className='w-full md:w-1/2 mx-auto grid grid-cols-2 gap-3'
             >
                 <input
                     id='driverName'
