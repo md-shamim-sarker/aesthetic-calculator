@@ -149,7 +149,7 @@ const Page = () => {
                             </tr>
                             <tr>
                                 <th>Truck Length</th>
-                                <td>{truckDetails.truckHeight}</td>
+                                <td>{truckDetails.truckLength}</td>
                             </tr>
                             <tr>
                                 <th>Truck Width</th>
