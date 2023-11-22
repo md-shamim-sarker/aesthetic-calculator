@@ -20,9 +20,16 @@ const Page = () => {
         },
         onSubmit: values => {
             const {driverName, mobileNo, truckNo, lengthFeet, lengthInch, widthFeet, widthInch, heightFeet, heightInch} = values;
+
+            const truckLength = (Number(lengthFeet) + Number(lengthInch) / 12).toFixed(2);
+            const truckWidth = (Number(widthFeet) + Number(widthInch) / 12).toFixed(2);
+            const truckHeight = (Number(heightFeet) + Number(widthInch) / 12).toFixed(2);
+
             const truckVolumeCft = ((lengthFeet + lengthInch / 12) * (widthFeet + widthInch / 12) * (heightFeet + heightInch / 12)).toFixed(2);
             const truckVolumeRounded = ((lengthFeet + lengthInch / 12) * (widthFeet + widthInch / 12) * (heightFeet + heightInch / 12)).toFixed(0);
-            const truckInfo = {driverName, mobileNo, truckNo, truckVolumeCft, truckVolumeRounded};
+
+            const truckInfo = {driverName, mobileNo, truckNo, truckLength, truckWidth, truckHeight, truckVolumeCft, truckVolumeRounded};
+
             setTruckDetails(truckInfo);
         },
     });
@@ -34,36 +41,42 @@ const Page = () => {
                 className='grid grid-cols-2 gap-3'
             >
                 <input
+                    id='driverName'
                     name="driverName"
                     type="text"
                     placeholder="Driver Name"
                     onChange={formik.handleChange}
                     value={formik.values.driverName}
-                    className="input input-bordered w-full col-span-2"
+                    className="input input-bordered w-full input-sm col-span-2"
                 />
                 <input
+                    id='mobileNo'
                     name="mobileNo"
                     type="text"
                     placeholder="Mobile No."
                     onChange={formik.handleChange}
                     value={formik.values.mobileNo}
-                    className="input input-bordered w-full"
+                    className="input input-bordered w-full input-sm"
                 />
+
                 <input
+                    id='truckNo'
                     name="truckNo"
                     type="text"
                     placeholder="Truck No."
                     onChange={formik.handleChange}
                     value={formik.values.truckNo}
-                    className="input input-bordered w-full"
+                    className="input input-bordered w-full input-sm"
                 />
+
                 <input
+                    id='lengthFeet'
                     name="lengthFeet"
                     type="number"
                     placeholder="Length (Feet)"
                     onChange={formik.handleChange}
                     value={formik.values.lengthFeet}
-                    className="input input-bordered w-full"
+                    className="input input-bordered w-full input-sm"
                 />
                 <input
                     name="lengthInch"
@@ -71,15 +84,17 @@ const Page = () => {
                     placeholder="Length (Inch)"
                     onChange={formik.handleChange}
                     value={formik.values.lengthInch}
-                    className="input input-bordered w-full"
+                    className="input input-bordered w-full input-sm"
                 />
+
                 <input
+                    id='widthFeet'
                     name="widthFeet"
                     type="number"
                     placeholder="Width (Feet)"
                     onChange={formik.handleChange}
                     value={formik.values.widthFeet}
-                    className="input input-bordered w-full"
+                    className="input input-bordered w-full input-sm"
                 />
                 <input
                     name="widthInch"
@@ -87,15 +102,17 @@ const Page = () => {
                     placeholder="Width (Inch)"
                     onChange={formik.handleChange}
                     value={formik.values.widthInch}
-                    className="input input-bordered w-full"
+                    className="input input-bordered w-full input-sm"
                 />
+
                 <input
+                    id='heightFeet'
                     name="heightFeet"
                     type="number"
                     placeholder="Height (Feet)"
                     onChange={formik.handleChange}
                     value={formik.values.heightFeet}
-                    className="input input-bordered w-full"
+                    className="input input-bordered w-full input-sm"
                 />
                 <input
                     name="heightInch"
@@ -103,14 +120,14 @@ const Page = () => {
                     placeholder="Height (Inch)"
                     onChange={formik.handleChange}
                     value={formik.values.heightInch}
-                    className="input input-bordered w-full"
+                    className="input input-bordered w-full input-sm"
                 />
 
-                <button type='submit' className="btn btn-primary">Submit</button>
+                <button type='submit' className="btn btn-primary btn-sm">Submit</button>
                 <button type='reset' onClick={() => {
                     formik.resetForm();
                     setTruckDetails("");
-                }} className="btn btn-primary">Reset</button>
+                }} className="btn btn-primary btn-sm">Reset</button>
             </form>
             {
                 truckDetails &&
@@ -129,6 +146,18 @@ const Page = () => {
                             <tr>
                                 <th>Truck No.</th>
                                 <td>{truckDetails.truckNo}</td>
+                            </tr>
+                            <tr>
+                                <th>Truck Length</th>
+                                <td>{truckDetails.truckHeight}</td>
+                            </tr>
+                            <tr>
+                                <th>Truck Width</th>
+                                <td>{truckDetails.truckWidth}</td>
+                            </tr>
+                            <tr>
+                                <th>Truck Height</th>
+                                <td>{truckDetails.truckHeight}</td>
                             </tr>
                             <tr>
                                 <th>Truck Volume</th>
