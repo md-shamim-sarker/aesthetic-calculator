@@ -1,7 +1,7 @@
 import TableComponent from "./table";
 
 async function getData() {
-    const res = await fetch(process.env.TRUCKINFO);
+    const res = await fetch('https://script.google.com/macros/s/AKfycbzT-Z-dIdiBV0XRALgK3nCr8h-BZ4Ru3qc3hmj6F4pWGWPVwhg6RKxKZmge8NbuzC_FJQ/exec');
     return res.json();
 }
 

@@ -13,7 +13,7 @@ const TableComponent = ({data}) => {
         },
         onSubmit: values => {
             const {truckNo} = values;
-            const truckData = data.filter(d => d.truckNo === String(truckNo));
+            const truckData = data.filter(d => d.truckNo === truckNo.toString());
             if(truckData.length > 0) {
                 setTruckData(truckData);
             } else {
