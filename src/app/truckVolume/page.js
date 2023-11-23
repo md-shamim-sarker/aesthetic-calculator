@@ -2,12 +2,14 @@
 
 import {useFormik} from 'formik';
 import React, {useState} from 'react';
+import dateFormat from 'dateformat';
 
 const Page = () => {
     const [truckDetails, setTruckDetails] = useState("");
 
     const formik = useFormik({
         initialValues: {
+            date: dateFormat(new Date(), "yyyy-mm-dd"),
             driverName: '',
             mobileNo: '',
             truckNo: '',
@@ -19,7 +21,7 @@ const Page = () => {
             heightInch: ''
         },
         onSubmit: values => {
-            const {driverName, mobileNo, truckNo, lengthFeet, lengthInch, widthFeet, widthInch, heightFeet, heightInch} = values;
+            const {date, driverName, mobileNo, truckNo, lengthFeet, lengthInch, widthFeet, widthInch, heightFeet, heightInch} = values;
 
             const truckLength = (Number(lengthFeet) + Number(lengthInch) / 12).toFixed(2);
             const truckWidth = (Number(widthFeet) + Number(widthInch) / 12).toFixed(2);
@@ -28,7 +30,7 @@ const Page = () => {
             const truckVolumeCft = ((lengthFeet + lengthInch / 12) * (widthFeet + widthInch / 12) * (heightFeet + heightInch / 12)).toFixed(2);
             const truckVolumeRounded = ((lengthFeet + lengthInch / 12) * (widthFeet + widthInch / 12) * (heightFeet + heightInch / 12)).toFixed(0);
 
-            const truckInfo = {driverName, mobileNo, truckNo, truckLength, truckWidth, truckHeight, truckVolumeCft, truckVolumeRounded};
+            const truckInfo = {date, driverName, mobileNo, truckNo, truckLength, truckWidth, truckHeight, truckVolumeCft, truckVolumeRounded};
 
             setTruckDetails(truckInfo);
         },
@@ -42,16 +44,23 @@ const Page = () => {
                 className='w-full md:w-1/2 mx-auto grid grid-cols-2 gap-3'
             >
                 <input
-                    id='driverName'
+                    name="date"
+                    type="date"
+                    onChange={formik.handleChange}
+                    value={formik.values.date}
+                    className="input input-bordered w-full input-sm"
+                />
+
+                <input
                     name="driverName"
                     type="text"
                     placeholder="Driver Name"
                     onChange={formik.handleChange}
                     value={formik.values.driverName}
-                    className="input input-bordered w-full input-sm col-span-2"
+                    className="input input-bordered w-full input-sm"
                 />
+
                 <input
-                    id='mobileNo'
                     name="mobileNo"
                     type="text"
                     placeholder="Mobile No."
@@ -61,7 +70,6 @@ const Page = () => {
                 />
 
                 <input
-                    id='truckNo'
                     name="truckNo"
                     type="text"
                     placeholder="Truck No."
@@ -71,7 +79,6 @@ const Page = () => {
                 />
 
                 <input
-                    id='lengthFeet'
                     name="lengthFeet"
                     type="number"
                     placeholder="Length (Feet)"
@@ -79,6 +86,7 @@ const Page = () => {
                     value={formik.values.lengthFeet}
                     className="input input-bordered w-full input-sm"
                 />
+
                 <input
                     name="lengthInch"
                     type="number"
@@ -89,7 +97,6 @@ const Page = () => {
                 />
 
                 <input
-                    id='widthFeet'
                     name="widthFeet"
                     type="number"
                     placeholder="Width (Feet)"
@@ -97,6 +104,7 @@ const Page = () => {
                     value={formik.values.widthFeet}
                     className="input input-bordered w-full input-sm"
                 />
+
                 <input
                     name="widthInch"
                     type="number"
@@ -107,7 +115,6 @@ const Page = () => {
                 />
 
                 <input
-                    id='heightFeet'
                     name="heightFeet"
                     type="number"
                     placeholder="Height (Feet)"
@@ -115,6 +122,7 @@ const Page = () => {
                     value={formik.values.heightFeet}
                     className="input input-bordered w-full input-sm"
                 />
+
                 <input
                     name="heightInch"
                     type="number"
@@ -136,6 +144,10 @@ const Page = () => {
                     <h2 className='my-3 font-bold text-2xl'>Truck Information</h2>
                     <table className='w-full md:w-1/2 mx-auto table table-sm border'>
                         <tbody>
+                            <tr>
+                                <th>Date</th>
+                                <td>{dateFormat(truckDetails.date, "dd-mm-yyyy")}</td>
+                            </tr>
                             <tr>
                                 <th>Driver Name</th>
                                 <td>{truckDetails.driverName}</td>

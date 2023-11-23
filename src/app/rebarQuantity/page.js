@@ -22,18 +22,20 @@ const Page = () => {
         onSubmit: values => {
             const {date, dealer, rate, rebar08mm, rebar10mm, rebar12mm, rebar16mm, rebar20mm, rebar25mm} = values;
 
-            const rebar08mmWeight = (rebar08mm * 39.5 * 0.120).toFixed(3);
-            const rebar10mmWeight = (rebar10mm * 39.5 * 0.188).toFixed(3);
-            const rebar12mmWeight = (rebar12mm * 39.5 * 0.270).toFixed(3);
-            const rebar16mmWeight = (rebar16mm * 39.5 * 0.480).toFixed(3);
-            const rebar20mmWeight = (rebar20mm * 39.5 * 0.751).toFixed(3);
-            const rebar25mmWeight = (rebar25mm * 39.5 * 1.174).toFixed(3);
+            const rebar08mmQnty = Math.ceil((rebar08mm * 162.2) / (8 * 8 * 12));
+            const rebar10mmQnty = Math.ceil((rebar10mm * 162.2) / (10 * 10 * 12));
+            const rebar12mmQnty = Math.ceil((rebar12mm * 162.2) / (12 * 12 * 12));
+            const rebar16mmQnty = Math.ceil((rebar16mm * 162.2) / (16 * 16 * 12));
+            const rebar20mmQnty = Math.ceil((rebar20mm * 162.2) / (20 * 20 * 12));
+            const rebar25mmQnty = Math.ceil((rebar25mm * 162.2) / (25 * 25 * 12));
 
-            const totalRebarWeight = Number(rebar08mmWeight) + Number(rebar10mmWeight) + Number(rebar12mmWeight) + Number(rebar16mmWeight) + Number(rebar20mmWeight) + Number(rebar25mmWeight);
+            const totalRebarQuantity = Number(rebar08mmQnty) + Number(rebar10mmQnty) + Number(rebar12mmQnty) + Number(rebar16mmQnty) + Number(rebar20mmQnty) + Number(rebar25mmQnty);
+
+            const totalRebarWeight = Number(rebar08mm) + Number(rebar10mm) + Number(rebar12mm) + Number(rebar16mm) + Number(rebar20mm) + Number(rebar25mm);
 
             const totalPrice = ((totalRebarWeight / 1000) * rate).toFixed(2);
 
-            const rebarInfo = {date, dealer, rate, rebar08mmWeight, rebar10mmWeight, rebar12mmWeight, rebar16mmWeight, rebar20mmWeight, rebar25mmWeight, totalRebarWeight, totalPrice};
+            const rebarInfo = {date, dealer, rate, rebar08mmQnty, rebar10mmQnty, rebar12mmQnty, rebar16mmQnty, rebar20mmQnty, rebar25mmQnty, totalRebarQuantity, totalPrice, rebar08mm, rebar10mm, rebar12mm, rebar16mm, rebar20mm, rebar25mm, totalRebarWeight};
 
             setRebarInfo(rebarInfo);
         },
@@ -41,7 +43,7 @@ const Page = () => {
 
     return (
         <div className='text-center'>
-            <h2 className='my-2 font-bold text-2xl'>Rebar Weight Calculation</h2>
+            <h2 className='my-2 font-bold text-2xl'>Rebar Quantity Calculation</h2>
             <form
                 onSubmit={formik.handleSubmit}
                 className='w-full md:w-1/2 mx-auto grid grid-cols-2 gap-3'
@@ -77,7 +79,7 @@ const Page = () => {
                 <input
                     name="rebar08mm"
                     type="number"
-                    placeholder="8mm Rebar (Qnty)"
+                    placeholder="8mm Rebar (Kg)"
                     onChange={formik.handleChange}
                     value={formik.values.rebar08mm}
                     className="input input-bordered w-full input-sm"
@@ -86,7 +88,7 @@ const Page = () => {
                 <input
                     name="rebar10mm"
                     type="number"
-                    placeholder="10mm Rebar (Qnty)"
+                    placeholder="10mm Rebar (Kg)"
                     onChange={formik.handleChange}
                     value={formik.values.rebar10mm}
                     className="input input-bordered w-full input-sm"
@@ -95,7 +97,7 @@ const Page = () => {
                 <input
                     name="rebar12mm"
                     type="number"
-                    placeholder="12mm Rebar (Qnty)"
+                    placeholder="12mm Rebar (Kg)"
                     onChange={formik.handleChange}
                     value={formik.values.rebar12mm}
                     className="input input-bordered w-full input-sm"
@@ -104,7 +106,7 @@ const Page = () => {
                 <input
                     name="rebar16mm"
                     type="number"
-                    placeholder="16mm Rebar (Qnty)"
+                    placeholder="16mm Rebar (Kg)"
                     onChange={formik.handleChange}
                     value={formik.values.rebar16mm}
                     className="input input-bordered w-full input-sm"
@@ -113,7 +115,7 @@ const Page = () => {
                 <input
                     name="rebar20mm"
                     type="number"
-                    placeholder="20mm Rebar (Qnty)"
+                    placeholder="20mm Rebar (Kg)"
                     onChange={formik.handleChange}
                     value={formik.values.rebar20mm}
                     className="input input-bordered w-full input-sm"
@@ -122,7 +124,7 @@ const Page = () => {
                 <input
                     name="rebar25mm"
                     type="number"
-                    placeholder="25mm Rebar (Qnty)"
+                    placeholder="25mm Rebar (Kg)"
                     onChange={formik.handleChange}
                     value={formik.values.rebar25mm}
                     className="input input-bordered w-full input-sm"
@@ -148,60 +150,60 @@ const Page = () => {
                             <tr>
                                 <th>Rebar Type</th>
                                 <th>Weight (Kg)</th>
-                                <th>Weight (Ton)</th>
+                                <th>Quantity (Pcs)</th>
                             </tr>
                             {
-                                rebarInfo.rebar08mmWeight > 0 &&
+                                rebarInfo.rebar08mm > 0 &&
                                 <tr>
                                     <td>8mm Rebar</td>
-                                    <td>{rebarInfo.rebar08mmWeight} Kg</td>
-                                    <td>{(rebarInfo.rebar08mmWeight / 1000).toFixed(3)} Ton</td>
+                                    <td>{rebarInfo.rebar08mm} Kg</td>
+                                    <td>{rebarInfo.rebar08mmQnty} Pcs</td>
                                 </tr>
                             }
                             {
-                                rebarInfo.rebar10mmWeight > 0 &&
+                                rebarInfo.rebar10mm > 0 &&
                                 <tr>
                                     <td>10mm Rebar</td>
-                                    <td>{rebarInfo.rebar10mmWeight} Kg</td>
-                                    <td>{(rebarInfo.rebar10mmWeight / 1000).toFixed(3)} Ton</td>
+                                    <td>{rebarInfo.rebar10mm} Kg</td>
+                                    <td>{rebarInfo.rebar10mmQnty} Pcs</td>
                                 </tr>
                             }
                             {
-                                rebarInfo.rebar12mmWeight > 0 &&
+                                rebarInfo.rebar12mm > 0 &&
                                 <tr>
                                     <td>12mm Rebar</td>
-                                    <td>{rebarInfo.rebar12mmWeight} Kg</td>
-                                    <td>{(rebarInfo.rebar12mmWeight / 1000).toFixed(3)} Ton</td>
+                                    <td>{rebarInfo.rebar12mm} Kg</td>
+                                    <td>{rebarInfo.rebar12mmQnty} Pcs</td>
                                 </tr>
                             }
                             {
-                                rebarInfo.rebar16mmWeight > 0 &&
+                                rebarInfo.rebar16mm > 0 &&
                                 <tr>
                                     <td>16mm Rebar</td>
-                                    <td>{rebarInfo.rebar16mmWeight} Kg</td>
-                                    <td>{(rebarInfo.rebar16mmWeight / 1000).toFixed(3)} Ton</td>
+                                    <td>{rebarInfo.rebar16mm} Kg</td>
+                                    <td>{rebarInfo.rebar16mmQnty} Pcs</td>
                                 </tr>
                             }
                             {
-                                rebarInfo.rebar20mmWeight > 0 &&
+                                rebarInfo.rebar20mm > 0 &&
                                 <tr>
                                     <td>20mm Rebar</td>
-                                    <td>{rebarInfo.rebar20mmWeight} Kg</td>
-                                    <td>{(rebarInfo.rebar20mmWeight / 1000).toFixed(3)} Ton</td>
+                                    <td>{rebarInfo.rebar20mm} Kg</td>
+                                    <td>{rebarInfo.rebar20mmQnty} Pcs</td>
                                 </tr>
                             }
                             {
-                                rebarInfo.rebar25mmWeight > 0 &&
+                                rebarInfo.rebar25mm > 0 &&
                                 <tr>
                                     <td>25mm Rebar</td>
-                                    <td>{rebarInfo.rebar25mmWeight} Kg</td>
-                                    <td>{(rebarInfo.rebar25mmWeight / 1000).toFixed(3)} Ton</td>
+                                    <td>{rebarInfo.rebar25mm} Kg</td>
+                                    <td>{rebarInfo.rebar25mmQnty} Pcs</td>
                                 </tr>
                             }
                             <tr className='font-bold'>
-                                <td>Total Weight</td>
+                                <td>Total</td>
                                 <td>{rebarInfo.totalRebarWeight} Kg</td>
-                                <td>{(rebarInfo.totalRebarWeight / 1000).toFixed(3)} Ton</td>
+                                <td>{rebarInfo.totalRebarQuantity} Pcs</td>
                             </tr>
                         </tbody>
                     </table>
