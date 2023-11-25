@@ -49,7 +49,7 @@ const Page = () => {
                     type="date"
                     onChange={formik.handleChange}
                     value={formik.values.date}
-                    className="input input-bordered w-full input-sm"
+                    className="w-full input input-sm input-bordered"
                 />
 
                 <input
