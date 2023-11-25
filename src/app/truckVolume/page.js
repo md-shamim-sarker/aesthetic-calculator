@@ -3,6 +3,7 @@
 import {useFormik} from 'formik';
 import React, {useState} from 'react';
 import dateFormat from 'dateformat';
+import Result from './result';
 
 const Page = () => {
     const [truckDetails, setTruckDetails] = useState("");
@@ -25,7 +26,7 @@ const Page = () => {
 
             const truckLength = (Number(lengthFeet) + Number(lengthInch) / 12).toFixed(2);
             const truckWidth = (Number(widthFeet) + Number(widthInch) / 12).toFixed(2);
-            const truckHeight = (Number(heightFeet) + Number(widthInch) / 12).toFixed(2);
+            const truckHeight = (Number(heightFeet) + Number(heightInch) / 12).toFixed(2);
 
             const truckVolumeCft = ((lengthFeet + lengthInch / 12) * (widthFeet + widthInch / 12) * (heightFeet + heightInch / 12)).toFixed(2);
             const truckVolumeRounded = ((lengthFeet + lengthInch / 12) * (widthFeet + widthInch / 12) * (heightFeet + heightInch / 12)).toFixed(0);
@@ -138,47 +139,10 @@ const Page = () => {
                     setTruckDetails("");
                 }} className="btn btn-primary btn-sm">Reset</button>
             </form>
+
             {
                 truckDetails &&
-                < div className='text-center'>
-                    <h2 className='my-3 font-bold text-2xl'>Truck Information</h2>
-                    <table className='w-full md:w-1/2 mx-auto table table-sm border'>
-                        <tbody>
-                            <tr>
-                                <th>Date</th>
-                                <td>{dateFormat(truckDetails.date, "dd-mm-yyyy")}</td>
-                            </tr>
-                            <tr>
-                                <th>Driver Name</th>
-                                <td>{truckDetails.driverName}</td>
-                            </tr>
-                            <tr>
-                                <th>Mobile No.</th>
-                                <td>{truckDetails.mobileNo}</td>
-                            </tr>
-                            <tr>
-                                <th>Truck No.</th>
-                                <td>{truckDetails.truckNo}</td>
-                            </tr>
-                            <tr>
-                                <th>Truck Length</th>
-                                <td>{truckDetails.truckLength}</td>
-                            </tr>
-                            <tr>
-                                <th>Truck Width</th>
-                                <td>{truckDetails.truckWidth}</td>
-                            </tr>
-                            <tr>
-                                <th>Truck Height</th>
-                                <td>{truckDetails.truckHeight}</td>
-                            </tr>
-                            <tr>
-                                <th>Truck Volume</th>
-                                <td>{truckDetails.truckVolumeCft} Cft ~ {truckDetails.truckVolumeRounded} Cft</td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
+                <Result data={truckDetails} />
             }
         </div>
     );

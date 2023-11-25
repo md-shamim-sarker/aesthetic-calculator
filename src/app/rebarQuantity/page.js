@@ -3,6 +3,7 @@
 import {useFormik} from 'formik';
 import React, {useState} from 'react';
 import dateFormat from 'dateformat';
+import Result from './result';
 
 const Page = () => {
     const [rebarInfo, setRebarInfo] = useState("");
@@ -31,7 +32,7 @@ const Page = () => {
 
             const totalRebarQuantity = Number(rebar08mmQnty) + Number(rebar10mmQnty) + Number(rebar12mmQnty) + Number(rebar16mmQnty) + Number(rebar20mmQnty) + Number(rebar25mmQnty);
 
-            const totalRebarWeight = Number(rebar08mm) + Number(rebar10mm) + Number(rebar12mm) + Number(rebar16mm) + Number(rebar20mm) + Number(rebar25mm);
+            const totalRebarWeight = (Number(rebar08mm) + Number(rebar10mm) + Number(rebar12mm) + Number(rebar16mm) + Number(rebar20mm) + Number(rebar25mm)).toFixed(3);
 
             const totalPrice = ((totalRebarWeight / 1000) * rate).toFixed(2);
 
@@ -138,76 +139,7 @@ const Page = () => {
             </form>
             {
                 rebarInfo &&
-                < div className='w-full md:w-1/2 mx-auto text-center'>
-                    <h2 className='my-3 font-bold text-2xl'>Rebar Information</h2>
-                    <div className='flex flex-col md:flex-row justify-between p-2 font-bold bg-blue-200 mb-3'>
-                        <h2>Date: {dateFormat(rebarInfo.date, "dd-mm-yyyy")}</h2>
-                        <h2>Dealer: {rebarInfo.dealer}</h2>
-                        <h2>Price: {rebarInfo.totalPrice} Taka</h2>
-                    </div>
-                    <table className='table table-sm border'>
-                        <tbody className='text-center'>
-                            <tr>
-                                <th>Rebar Type</th>
-                                <th>Weight (Kg)</th>
-                                <th>Quantity (Pcs)</th>
-                            </tr>
-                            {
-                                rebarInfo.rebar08mm > 0 &&
-                                <tr>
-                                    <td>8mm Rebar</td>
-                                    <td>{rebarInfo.rebar08mm} Kg</td>
-                                    <td>{rebarInfo.rebar08mmQnty} Pcs</td>
-                                </tr>
-                            }
-                            {
-                                rebarInfo.rebar10mm > 0 &&
-                                <tr>
-                                    <td>10mm Rebar</td>
-                                    <td>{rebarInfo.rebar10mm} Kg</td>
-                                    <td>{rebarInfo.rebar10mmQnty} Pcs</td>
-                                </tr>
-                            }
-                            {
-                                rebarInfo.rebar12mm > 0 &&
-                                <tr>
-                                    <td>12mm Rebar</td>
-                                    <td>{rebarInfo.rebar12mm} Kg</td>
-                                    <td>{rebarInfo.rebar12mmQnty} Pcs</td>
-                                </tr>
-                            }
-                            {
-                                rebarInfo.rebar16mm > 0 &&
-                                <tr>
-                                    <td>16mm Rebar</td>
-                                    <td>{rebarInfo.rebar16mm} Kg</td>
-                                    <td>{rebarInfo.rebar16mmQnty} Pcs</td>
-                                </tr>
-                            }
-                            {
-                                rebarInfo.rebar20mm > 0 &&
-                                <tr>
-                                    <td>20mm Rebar</td>
-                                    <td>{rebarInfo.rebar20mm} Kg</td>
-                                    <td>{rebarInfo.rebar20mmQnty} Pcs</td>
-                                </tr>
-                            }
-                            {
-                                rebarInfo.rebar25mm > 0 &&
-                                <tr>
-                                    <td>25mm Rebar</td>
-                                    <td>{rebarInfo.rebar25mm} Kg</td>
-                                    <td>{rebarInfo.rebar25mmQnty} Pcs</td>
-                                </tr>
-                            }
-                            <tr className='font-bold'>
-                                <td>Total</td>
-                                <td>{rebarInfo.totalRebarWeight} Kg</td>
-                                <td>{rebarInfo.totalRebarQuantity} Pcs</td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
+                <Result data={rebarInfo} />
             }
         </div>
     );

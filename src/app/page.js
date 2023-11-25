@@ -1,6 +1,7 @@
 import Link from "next/link";
 import {GiCrystalBars} from "react-icons/gi";
 import {MdOutlineFireTruck} from "react-icons/md";
+import {PiCylinderFill} from "react-icons/pi";
 
 const Home = () => {
   return (
@@ -35,9 +36,9 @@ const Home = () => {
       </div>
 
       <div className="border rounded-md p-2 text-center shadow-md hover:bg-slate-900 hover:text-white transition-all">
-        <Link href={"#"} className="flex flex-col item-center justify-center">
-          <div className="flex justify-center"><GiCrystalBars className="text-3xl" /></div>
-          <p>Rebar Weight</p>
+        <Link href="/pile" className="flex flex-col item-center justify-center">
+          <div className="flex justify-center"><PiCylinderFill className="text-3xl" /></div>
+          <p>Pile Calculation</p>
         </Link>
       </div>
 

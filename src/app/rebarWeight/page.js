@@ -3,6 +3,7 @@
 import {useFormik} from 'formik';
 import React, {useState} from 'react';
 import dateFormat from 'dateformat';
+import Result from './result';
 
 const Page = () => {
     const [rebarInfo, setRebarInfo] = useState("");
@@ -29,7 +30,7 @@ const Page = () => {
             const rebar20mmWeight = (rebar20mm * 39.5 * 0.751).toFixed(3);
             const rebar25mmWeight = (rebar25mm * 39.5 * 1.174).toFixed(3);
 
-            const totalRebarWeight = Number(rebar08mmWeight) + Number(rebar10mmWeight) + Number(rebar12mmWeight) + Number(rebar16mmWeight) + Number(rebar20mmWeight) + Number(rebar25mmWeight);
+            const totalRebarWeight = (Number(rebar08mmWeight) + Number(rebar10mmWeight) + Number(rebar12mmWeight) + Number(rebar16mmWeight) + Number(rebar20mmWeight) + Number(rebar25mmWeight)).toFixed(3);
 
             const totalPrice = ((totalRebarWeight / 1000) * rate).toFixed(2);
 
@@ -136,76 +137,7 @@ const Page = () => {
             </form>
             {
                 rebarInfo &&
-                < div className='w-full md:w-1/2 mx-auto text-center'>
-                    <h2 className='my-3 font-bold text-2xl'>Rebar Information</h2>
-                    <div className='flex flex-col md:flex-row justify-between p-2 font-bold bg-blue-200 mb-3'>
-                        <h2>Date: {dateFormat(rebarInfo.date, "dd-mm-yyyy")}</h2>
-                        <h2>Dealer: {rebarInfo.dealer}</h2>
-                        <h2>Price: {rebarInfo.totalPrice} Taka</h2>
-                    </div>
-                    <table className='table table-sm border'>
-                        <tbody className='text-center'>
-                            <tr>
-                                <th>Rebar Type</th>
-                                <th>Weight (Kg)</th>
-                                <th>Weight (Ton)</th>
-                            </tr>
-                            {
-                                rebarInfo.rebar08mmWeight > 0 &&
-                                <tr>
-                                    <td>8mm Rebar</td>
-                                    <td>{rebarInfo.rebar08mmWeight} Kg</td>
-                                    <td>{(rebarInfo.rebar08mmWeight / 1000).toFixed(3)} Ton</td>
-                                </tr>
-                            }
-                            {
-                                rebarInfo.rebar10mmWeight > 0 &&
-                                <tr>
-                                    <td>10mm Rebar</td>
-                                    <td>{rebarInfo.rebar10mmWeight} Kg</td>
-                                    <td>{(rebarInfo.rebar10mmWeight / 1000).toFixed(3)} Ton</td>
-                                </tr>
-                            }
-                            {
-                                rebarInfo.rebar12mmWeight > 0 &&
-                                <tr>
-                                    <td>12mm Rebar</td>
-                                    <td>{rebarInfo.rebar12mmWeight} Kg</td>
-                                    <td>{(rebarInfo.rebar12mmWeight / 1000).toFixed(3)} Ton</td>
-                                </tr>
-                            }
-                            {
-                                rebarInfo.rebar16mmWeight > 0 &&
-                                <tr>
-                                    <td>16mm Rebar</td>
-                                    <td>{rebarInfo.rebar16mmWeight} Kg</td>
-                                    <td>{(rebarInfo.rebar16mmWeight / 1000).toFixed(3)} Ton</td>
-                                </tr>
-                            }
-                            {
-                                rebarInfo.rebar20mmWeight > 0 &&
-                                <tr>
-                                    <td>20mm Rebar</td>
-                                    <td>{rebarInfo.rebar20mmWeight} Kg</td>
-                                    <td>{(rebarInfo.rebar20mmWeight / 1000).toFixed(3)} Ton</td>
-                                </tr>
-                            }
-                            {
-                                rebarInfo.rebar25mmWeight > 0 &&
-                                <tr>
-                                    <td>25mm Rebar</td>
-                                    <td>{rebarInfo.rebar25mmWeight} Kg</td>
-                                    <td>{(rebarInfo.rebar25mmWeight / 1000).toFixed(3)} Ton</td>
-                                </tr>
-                            }
-                            <tr className='font-bold'>
-                                <td>Total Weight</td>
-                                <td>{rebarInfo.totalRebarWeight} Kg</td>
-                                <td>{(rebarInfo.totalRebarWeight / 1000).toFixed(3)} Ton</td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
+                <Result data={rebarInfo} />
             }
         </div>
     );
