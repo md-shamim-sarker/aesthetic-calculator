@@ -19,19 +19,27 @@ const Page = () => {
             widthFeet: '',
             widthInch: '',
             heightFeet: '',
-            heightInch: ''
+            heightInch: '',
+            perpendicularFeet: '',
+            perpendicularInch: '',
+            baseFeet: '',
+            baseInch: ''
         },
         onSubmit: values => {
-            const {date, driverName, mobileNo, truckNo, lengthFeet, lengthInch, widthFeet, widthInch, heightFeet, heightInch} = values;
+            const {date, driverName, mobileNo, truckNo, lengthFeet, lengthInch, widthFeet, widthInch, heightFeet, heightInch, perpendicularFeet, perpendicularInch, baseFeet, baseInch} = values;
 
             const truckLength = (Number(lengthFeet) + Number(lengthInch) / 12).toFixed(2);
             const truckWidth = (Number(widthFeet) + Number(widthInch) / 12).toFixed(2);
             const truckHeight = (Number(heightFeet) + Number(heightInch) / 12).toFixed(2);
+            const truckPerpendicular = (Number(perpendicularFeet) + Number(perpendicularInch) / 12).toFixed(2);
+            const truckBase = (Number(baseFeet) + Number(baseInch) / 12).toFixed(2);
 
             const truckVolumeCft = ((lengthFeet + lengthInch / 12) * (widthFeet + widthInch / 12) * (heightFeet + heightInch / 12)).toFixed(2);
             const truckVolumeRounded = ((lengthFeet + lengthInch / 12) * (widthFeet + widthInch / 12) * (heightFeet + heightInch / 12)).toFixed(0);
+            const slopeVolumeCft = (0.5 * truckBase * truckPerpendicular * truckWidth).toFixed(2);
+            const slopeVolumeRounded = (0.5 * truckBase * truckPerpendicular * truckWidth).toFixed(0);
 
-            const truckInfo = {date, driverName, mobileNo, truckNo, truckLength, truckWidth, truckHeight, truckVolumeCft, truckVolumeRounded};
+            const truckInfo = {date, driverName, mobileNo, truckNo, truckLength, truckWidth, truckHeight, truckPerpendicular, truckBase, truckVolumeCft, truckVolumeRounded, slopeVolumeCft, slopeVolumeRounded};
 
             setTruckDetails(truckInfo);
         },
@@ -130,6 +138,41 @@ const Page = () => {
                     placeholder="Height (Inch)"
                     onChange={formik.handleChange}
                     value={formik.values.heightInch}
+                    className="input input-bordered w-full input-sm"
+                />
+                <input
+                    name="perpendicularFeet"
+                    type="number"
+                    placeholder="Perpendicular (Feet)"
+                    onChange={formik.handleChange}
+                    value={formik.values.perpendicularFeet}
+                    className="input input-bordered w-full input-sm"
+                />
+
+                <input
+                    name="perpendicularInch"
+                    type="number"
+                    placeholder="Perpendicular (Inch)"
+                    onChange={formik.handleChange}
+                    value={formik.values.perpendicularInch}
+                    className="input input-bordered w-full input-sm"
+                />
+
+                <input
+                    name="baseFeet"
+                    type="number"
+                    placeholder="Base (Feet)"
+                    onChange={formik.handleChange}
+                    value={formik.values.baseFeet}
+                    className="input input-bordered w-full input-sm"
+                />
+
+                <input
+                    name="baseInch"
+                    type="number"
+                    placeholder="Base (Inch)"
+                    onChange={formik.handleChange}
+                    value={formik.values.baseInch}
                     className="input input-bordered w-full input-sm"
                 />
 

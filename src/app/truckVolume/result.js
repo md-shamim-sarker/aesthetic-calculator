@@ -25,19 +25,35 @@ const Result = ({data}) => {
                     </tr>
                     <tr>
                         <th>Truck Length</th>
-                        <td>{data.truckLength}</td>
+                        <td>{data.truckLength} Feet</td>
                     </tr>
                     <tr>
                         <th>Truck Width</th>
-                        <td>{data.truckWidth}</td>
+                        <td>{data.truckWidth} Feet</td>
                     </tr>
                     <tr>
                         <th>Truck Height</th>
-                        <td>{data.truckHeight}</td>
+                        <td>{data.truckHeight} Feet</td>
                     </tr>
                     <tr>
                         <th>Truck Volume</th>
                         <td>{data.truckVolumeCft} Cft ~ {data.truckVolumeRounded} Cft</td>
+                    </tr>
+                    <tr>
+                        <th>Triangle Perpendicular</th>
+                        <td>{data.truckPerpendicular} Feet</td>
+                    </tr>
+                    <tr>
+                        <th>Triangle Base</th>
+                        <td>{data.truckBase} Feet</td>
+                    </tr>
+                    <tr>
+                        <th>Triangle Volume</th>
+                        <td>{data.slopeVolumeCft} Cft ~ {data.slopeVolumeRounded} Cft</td>
+                    </tr>
+                    <tr>
+                        <th>Net Sand Volume</th>
+                        <td>{data.truckVolumeRounded - data.slopeVolumeRounded} Cft</td>
                     </tr>
                 </tbody>
             </table>
